@@ -4,7 +4,7 @@
 
 Wei Chen · Master of Regional Planning, Cornell University · 2026
 
-> Independent academic work using public data. Not affiliated with or endorsed by the MTA or any other agency.
+> Independent academic work using public data.
 
 <p align="center"><img src="outputs/figures/F5_mgwr_local_access.png" width="48%" alt="MGWR local access premium"> <img src="outputs/figures/F7_ibx_access_gain.png" width="48%" alt="IBX scenario access gain"></p>
 
