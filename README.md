@@ -81,6 +81,7 @@ scripts/
   06b_ibx_scenario.py    IBX GTFS + routing
   06c_ibx_effects.py     who gains; rent-pressure screen
   07_figures.py          figures (PNG + PDF)
+  08a_context.py         neighbouring land (NJ, Westchester, Nassau) for the atlas basemap
   08_webmap_data.py      quoted facts (facts.json) + data and page for the interactive atlas
   09_readme_findings.py  README findings table from facts.json
 web/template.html        atlas page template (D3, no basemap tiles needed)
@@ -101,7 +102,7 @@ bash run_all.sh                     # also rebuilds the .docx (npm i docx)
 
 ## Data sources
 
-MTA static GTFS (subway; Bronx, Brooklyn, Manhattan, Queens, Staten Island buses; MTA Bus Co.) · OpenStreetMap contributors (ODbL) · U.S. Census Bureau LEHD LODES 8 (2023) and ACS 2020–24 5-year · NYC Department of City Planning PLUTO 26v2, 2020 census tracts and NTAs · MTA IBX project materials (station list, runtime, headways).
+MTA static GTFS (subway; Bronx, Brooklyn, Manhattan, Queens, Staten Island buses; MTA Bus Co.) · OpenStreetMap contributors (ODbL) · U.S. Census Bureau LEHD LODES 8 (2023) and ACS 2020–24 5-year · NYC Department of City Planning PLUTO 26v2, 2020 census tracts and NTAs · U.S. Census Bureau 1:500k cartographic county boundaries (atlas basemap) · MTA IBX project materials (station list, runtime, headways).
 
 ## Limitations
 

@@ -4,7 +4,8 @@ Step 08 — Compact data for the interactive web map.
 Writes outputs/web/map_data.json and outputs/web/index.html (the page, with the
 data inlined, from web/template.html). The JSON holds tract polygons (EPSG:2263, simplified to
 ~40 ft and rounded to 10 ft so the file stays small) with the attributes the
-map shows, plus subway lines and the IBX corridor. The page draws them with
+map shows, plus subway lines, the IBX corridor and the neighbouring land from
+08a_context.py. The page draws them with
 d3.geoIdentity, so no basemap tiles or projection library are needed.
 """
 import json
@@ -13,7 +14,7 @@ import zipfile
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from shapely.geometry import LineString, mapping
+from shapely.geometry import LineString, box, mapping
 
 from config import RAW, PROC, OUT, CRS_NYC
 
@@ -89,17 +90,50 @@ ibx_line = q(LineString([(p.x, p.y) for p in st.geometry]))
 stations = [{"name": n, "xy": [int(round(p.x / Q)), int(round(p.y / Q))]}
             for n, p in zip(st.station, st.geometry)]
 
+# Borough land (all tracts, incl. parks and airports): drawn as the city's base
+# fill under the tracts and as the borough outline above them
 borough = tr.dissolve("boroname").reset_index()
-borough["geometry"] = borough.geometry.simplify(80)
+borough["geometry"] = borough.geometry.simplify(40)
 boro = [{"type": "Feature", "geometry": q(g), "properties": {"b": b}}
         for g, b in zip(borough.geometry, borough.boroname)]
 
+# Neighbouring land (08a_context.py) and basemap labels
+ctx = gpd.read_file(PROC / "context_land.gpkg", layer="land")
+ctx_geom = ctx.geometry.simplify(60).union_all()
+CTX_BOX = (-74.60, 40.30, -73.40, 41.10)          # lon/lat window the map can pan over
+ctx_box = gpd.GeoSeries([box(*CTX_BOX).segmentize(0.01)], crs="EPSG:4326").to_crs(CRS_NYC).iat[0]
+ctx_geom = ctx_geom.intersection(ctx_box)
+
+
+def edge(lon, lat):
+    return gpd.GeoSeries(gpd.points_from_xy(lon, lat), crs="EPSG:4326").to_crs(CRS_NYC)
+
+
+t_ = np.linspace(0, 1, 25)
+lo_, la_ = CTX_BOX[0] + t_ * (CTX_BOX[2] - CTX_BOX[0]), CTX_BOX[1] + t_ * (CTX_BOX[3] - CTX_BOX[1])
+ext = [int(v / Q) for v in (edge(np.full(25, CTX_BOX[0]), la_).x.max(),   # pan limit: largest
+                            edge(lo_, np.full(25, CTX_BOX[1])).y.max(),   # rectangle inside
+                            edge(np.full(25, CTX_BOX[2]), la_).x.min(),   # the projected box
+                            edge(lo_, np.full(25, CTX_BOX[3])).y.min())]
+LABELS = [  # name, lon, lat, kind, rotation (deg, screen)
+    ("New Jersey", -74.185, 40.745, "land", 0), ("Westchester", -73.79, 40.926, "land", 0),
+    ("Nassau", -73.635, 40.705, "land", 0),
+    ("Hudson River", -73.993, 40.808, "water", -62), ("Upper Bay", -74.058, 40.662, "water", 0),
+    ("Lower Bay", -74.04, 40.535, "water", 0), ("Atlantic Ocean", -73.86, 40.545, "water", 0),
+    ("Long Island Sound", -73.715, 40.872, "water", 0),
+]
+lab_xy = gpd.GeoSeries(gpd.points_from_xy([l[1] for l in LABELS], [l[2] for l in LABELS]),
+                       crs="EPSG:4326").to_crs(CRS_NYC)
+labels = [{"t": l[0], "k": l[3], "r": l[4], "xy": [int(round(p.x / Q)), int(round(p.y / Q))]}
+          for l, p in zip(LABELS, lab_xy)]
+
 out = {"q": Q, "tracts": {"type": "FeatureCollection", "features": feats},
        "boroughs": {"type": "FeatureCollection", "features": boro},
+       "context": q(ctx_geom), "labels": labels,
        "subway": {"type": "FeatureCollection", "features": subway},
        "ibx": {"line": ibx_line, "stations": stations},
        "meta": {"jobs_total": int(tr["jobs"].sum()), "tracts": len(feats),
-                "sample": int(tr.in_sample.sum())}}
+                "sample": int(tr.in_sample.sum()), "ext": ext}}
 p = WEB / "map_data.json"
 p.write_text(json.dumps(out, separators=(",", ":")))
 print(f"Wrote {p} ({p.stat().st_size / 1e6:.2f} MB, {len(feats)} tracts)")

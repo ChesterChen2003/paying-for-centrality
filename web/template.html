@@ -1,43 +1,47 @@
 <title>Paying for Centrality</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
 <style>
 /* Layout: two-pane atlas — narrative + view switcher on the left, map on the
-   right; stacks to one column on phones. Deliberately dark-only, to sit on
-   the author's Ink & Slate portfolio site. */
+   right; stacks to one column on phones. Light, paper-toned surface; the
+   neighbouring land is grey context and the water a pale blue-grey. */
 :root {
-  color-scheme: dark;
-  --ink: #0f1419;          /* page ground */
-  --slate: #171e26;        /* panels */
-  --slate-2: #1f2832;      /* raised controls */
-  --line: #2c3742;         /* hairlines */
-  --fg: #e8edf2;           /* primary text */
-  --fg-2: #a9b4bf;         /* secondary text */
-  --fg-3: #74808c;         /* muted text */
-  --cyan: #4cc9e0;         /* UI accent (never a data colour) */
-  --land: #232c36;         /* no-data tracts */
-  --water-edge: #3a4651;
-  --rail: #8b97a3;
-  --ibx: #f07b3f;
+  color-scheme: light;
+  --paper: #fbfaf7;        /* page ground */
+  --panel: #ffffff;        /* narrative panel */
+  --raised: #f5f4f0;       /* buttons, hover */
+  --line: #e5e3dd;         /* hairlines */
+  --fg: #1d2125;           /* primary text */
+  --fg-2: #4b5259;         /* secondary text */
+  --fg-3: #7c838a;         /* muted text */
+  --accent: #1d2125;       /* selected state: ink, never a data colour */
+  --water: #eef4f8;
+  --context: #dcdcd7;      /* neighbouring land */
+  --base: #dde6d4;         /* city land with no residents: parks, airports, cemeteries */
+  --nodata: #f1efe9;       /* tracts outside the rent sample: hatched */
+  --nodata-line: #cdcac2;
+  --boro: #858b91;
+  --rail: #555c63;
+  --ibx: #eb6834;
+  --lab-land: #80827d;
+  --lab-water: #6f8a9e;
   --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --step--1: 0.78rem; --step-0: 0.9rem; --step-1: 1.05rem; --step-2: 1.35rem; --step-3: 1.9rem;
 }
 html, body { height: 100%; }
-body { background: var(--ink); color: var(--fg); font-family: var(--font-sans); font-size: var(--step-0); line-height: 1.5; }
+body { background: var(--paper); color: var(--fg); font-family: var(--font-sans); font-size: var(--step-0); line-height: 1.5; }
 .wrap { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; height: 100%; }
-aside { background: var(--slate); border-right: 1px solid var(--line); padding-block: 22px 18px; padding-inline: 22px; display: flex; flex-direction: column; gap: 18px; min-width: 0; overflow-y: auto; }
-.eyebrow { font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan); }
-h1 { font-size: var(--step-3); line-height: 1.1; font-weight: 600; margin: 4px 0 6px; text-wrap: balance; letter-spacing: -0.01em; }
+aside { background: var(--panel); border-right: 1px solid var(--line); padding-block: 26px 18px; padding-inline: 24px; display: flex; flex-direction: column; gap: 18px; min-width: 0; overflow-y: auto; }
+h1 { font-size: var(--step-3); line-height: 1.1; font-weight: 600; margin: 0 0 8px; text-wrap: balance; letter-spacing: -0.015em; }
 .dek { color: var(--fg-2); margin: 0; max-width: 60ch; }
-.byline { font-family: var(--font-mono); font-size: var(--step--1); color: var(--fg-3); margin-top: 8px; }
 nav.views { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-nav.views button { font: inherit; font-size: var(--step--1); text-align: left; color: var(--fg-2); background: var(--slate-2); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; cursor: pointer; display: flex; gap: 8px; align-items: baseline; }
+nav.views button { font: inherit; font-size: var(--step--1); text-align: left; color: var(--fg-2); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; cursor: pointer; display: flex; gap: 8px; align-items: baseline; transition: background-color 120ms, border-color 120ms; }
 nav.views button .n { font-family: var(--font-mono); color: var(--fg-3); }
-nav.views button:hover { border-color: var(--fg-3); color: var(--fg); }
-nav.views button[aria-pressed="true"] { border-color: var(--cyan); color: var(--fg); box-shadow: inset 2px 0 0 var(--cyan); }
-nav.views button:focus-visible, .ctl button:focus-visible, .toggle input:focus-visible + span { outline: 2px solid var(--cyan); outline-offset: 2px; }
+nav.views button:hover { background: var(--raised); color: var(--fg); }
+nav.views button[aria-pressed="true"] { border-color: var(--accent); color: var(--fg); background: var(--raised); box-shadow: inset 2px 0 0 var(--accent); }
+nav.views button:focus-visible, .ctl button:focus-visible, .toggle input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
 .story h2 { font-size: var(--step-1); font-weight: 600; margin: 0 0 6px; text-wrap: balance; }
 .story p { margin: 0 0 8px; color: var(--fg-2); max-width: 62ch; }
 .stat { display: flex; align-items: baseline; gap: 10px; margin: 6px 0 10px; }
@@ -46,33 +50,43 @@ nav.views button:focus-visible, .ctl button:focus-visible, .toggle input:focus-v
 .legend { display: grid; gap: 4px; }
 .legend .t { font-family: var(--font-mono); font-size: var(--step--1); color: var(--fg-3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
 .legend .row { display: flex; align-items: center; gap: 8px; font-size: var(--step--1); color: var(--fg-2); font-variant-numeric: tabular-nums; }
-.legend .sw { width: 22px; height: 12px; border-radius: 2px; flex: none; }
-.legend .ln { width: 22px; height: 0; border-top: 2px solid var(--ibx); flex: none; }
+.legend .sw { width: 22px; height: 12px; border-radius: 2px; flex: none; box-shadow: inset 0 0 0 1px rgba(29, 33, 37, 0.08); }
+.legend .sw.hatch { background: repeating-linear-gradient(135deg, var(--nodata-line) 0 1px, var(--nodata) 1px 4px); }
+.legend .ln { width: 22px; height: 0; border-top: 3px solid var(--ibx); flex: none; }
 .toggle { display: flex; align-items: center; gap: 8px; font-size: var(--step--1); color: var(--fg-2); cursor: pointer; }
-.toggle input { accent-color: var(--cyan); }
+.toggle input { accent-color: var(--accent); }
 .method { margin-top: auto; border-top: 1px solid var(--line); padding-top: 12px; font-size: var(--step--1); color: var(--fg-3); }
 .method p { margin: 0 0 6px; max-width: 64ch; }
 .method a { color: var(--fg-2); }
 main { position: relative; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
-.mapbox { position: relative; flex: 1; min-height: 0; }
+.mapbox { position: relative; flex: 1; min-height: 0; background: var(--water); overflow: hidden; }
 svg#map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
 svg#map:active { cursor: grabbing; }
-.tract { stroke: var(--ink); stroke-width: 0.3; vector-effect: non-scaling-stroke; }
-.tract:hover, .tract.pinned { stroke: var(--fg); stroke-width: 1.4; }
-.boro { fill: none; stroke: var(--water-edge); stroke-width: 0.8; vector-effect: non-scaling-stroke; pointer-events: none; }
-.sub { fill: none; stroke: var(--rail); stroke-width: 0.7; opacity: 0.75; vector-effect: non-scaling-stroke; pointer-events: none; }
-.ibx-line { fill: none; stroke: var(--ibx); stroke-width: 3; vector-effect: non-scaling-stroke; pointer-events: none; }
-.ibx-stn { fill: var(--ink); stroke: var(--ibx); stroke-width: 1.6; vector-effect: non-scaling-stroke; pointer-events: none; }
-.ibx-lab { font-family: var(--font-mono); font-size: 11px; fill: var(--fg); paint-order: stroke; stroke: var(--ink); stroke-width: 3px; pointer-events: none; }
+.ctx { fill: var(--context); stroke: none; pointer-events: none; }
+.base { fill: var(--base); stroke: none; pointer-events: none; }
+.tract { stroke: #ffffff; stroke-opacity: 0.75; stroke-width: 0.3; vector-effect: non-scaling-stroke; }
+.tract:hover, .tract.pinned { stroke: var(--fg); stroke-opacity: 1; stroke-width: 1.4; }
+.boro { fill: none; stroke: var(--boro); stroke-width: 0.8; vector-effect: non-scaling-stroke; pointer-events: none; }
+.sub { fill: none; stroke: var(--rail); stroke-width: 0.7; opacity: 0.55; vector-effect: non-scaling-stroke; pointer-events: none; }
+.ibx-line { fill: none; stroke: var(--ibx); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.ibx-stn { fill: #ffffff; stroke: var(--ibx); stroke-width: 1.6; vector-effect: non-scaling-stroke; pointer-events: none; }
+.ibx-lab { font-family: var(--font-mono); font-size: 11px; fill: var(--fg); paint-order: stroke; stroke: #ffffff; stroke-width: 3px; stroke-linejoin: round; pointer-events: none; }
+.lab { pointer-events: none; text-anchor: middle; dominant-baseline: middle; }
+.lab.land { font-family: var(--font-sans); font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; fill: var(--lab-land); }
+.lab.water { font-family: var(--font-sans); font-style: italic; fill: var(--lab-water); letter-spacing: 0.02em; }
 .ctl { position: absolute; right: 14px; top: 14px; display: flex; flex-direction: column; gap: 4px; }
-.ctl button { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--line); background: var(--slate); color: var(--fg); font: 500 16px var(--font-mono); cursor: pointer; }
-.ctl button:hover { border-color: var(--fg-3); }
-.tip { position: absolute; pointer-events: none; background: rgba(15, 20, 25, 0.94); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 210px; max-width: 260px; font-size: var(--step--1); color: var(--fg-2); box-shadow: 0 6px 24px rgba(0,0,0,0.35); }
+.ctl button { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); font: 500 16px var(--font-mono); cursor: pointer; box-shadow: 0 1px 3px rgba(29, 33, 37, 0.08); }
+.ctl button:hover { background: var(--raised); }
+.scalebar { position: absolute; left: 16px; bottom: 14px; display: flex; align-items: flex-end; gap: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--fg-2); pointer-events: none; }
+.scalebar .bar { height: 5px; border: 1px solid var(--fg-2); border-top: none; }
+.tip { position: absolute; pointer-events: none; background: rgba(255, 255, 255, 0.97); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 210px; max-width: 260px; font-size: var(--step--1); color: var(--fg-2); box-shadow: 0 8px 28px rgba(29, 33, 37, 0.14); }
 .tip b { color: var(--fg); font-weight: 600; display: block; font-size: var(--step-0); margin-bottom: 2px; }
 .tip .k { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
 .tip .k span:last-child { font-family: var(--font-mono); color: var(--fg); }
-.tip .hl span:last-child { color: var(--cyan); }
-.foot { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-block: 8px; padding-inline: 16px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+.tip .hl { color: var(--fg); font-weight: 600; }
+.tip .hl span:last-child { font-weight: 500; }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 18px; padding-block: 8px; padding-inline: 16px; border-top: 1px solid var(--line); background: var(--panel); font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+.foot .src { margin-left: auto; }
 @media (max-width: 860px) {
   .wrap { grid-template-columns: 1fr; height: auto; }
   aside { border-right: none; border-bottom: 1px solid var(--line); padding-inline: 16px; overflow: visible; }
@@ -85,10 +99,8 @@ svg#map:active { cursor: grabbing; }
 <div class="wrap">
   <aside>
     <header>
-      <div class="eyebrow">NYC · {{tracts_all}} census tracts · AM peak</div>
       <h1>Paying for Centrality</h1>
       <p class="dek">Do New York renters pay more for transit access to jobs? Mostly they pay for being central. This atlas follows the analysis from access to rent to who stands to gain from the Interborough Express.</p>
-      <div class="byline">Wei Chen · Cornell MRP · 2026</div>
     </header>
 
     <nav class="views" aria-label="Map views" id="views"></nav>
@@ -113,9 +125,10 @@ svg#map:active { cursor: grabbing; }
         <button id="zout" aria-label="Zoom out">−</button>
         <button id="zreset" aria-label="Reset view">⟲</button>
       </div>
+      <div class="scalebar" aria-hidden="true"><span class="bar" id="sbar"></span><span id="slab"></span></div>
       <div class="tip" id="tip" hidden></div>
     </div>
-    <div class="foot"><span>Hover a tract for detail · click to pin · drag and scroll to explore</span><span id="pinned"></span></div>
+    <div class="foot"><span>Hover a tract for detail · click to pin · drag and scroll to explore</span><span id="pinned"></span><span class="src">Land and water © OpenStreetMap contributors, U.S. Census Bureau</span></div>
   </main>
 </div>
 
@@ -127,13 +140,16 @@ svg#map:active { cursor: grabbing; }
   const fmtK = v => v == null ? "–" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? Math.round(v / 1e3) + "k" : String(v);
   const pct = (v, d = 0) => v == null ? "–" : (v * 100).toFixed(d) + "%";
   const usd = v => v == null ? "–" : "$" + d3.format(",")(v);
-  const LAND = getComputedStyle(document.documentElement).getPropertyValue("--land").trim();
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const BASE = css("--base"), NODATA = "url(#nodata)", NOGAIN = "#efede6";
 
-  // ---- colour steps (dark-surface steps of the reference ramps) ----------
-  const BLUE = ["#0d366b", "#184f95", "#256abf", "#3987e5", "#6da7ec", "#9ec5f4", "#cde2fb"];
-  const ORNG = ["#6f290c", "#9e3c14", "#c9501f", "#eb6834", "#f4a07a", "#f9c3a8", "#fde3d6"];
-  const DIV = ["#3987e5", "#86b6ef", "#c8d9ee", "#3a4046", "#f4c0bf", "#e66767", "#c53a3a"];
-  const MID = "#3a4046";
+  // ---- colour steps (light-surface ramps: low = light, high = dark) -------
+  const BLUE = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"];
+  const ORNG = ["#fde3d6", "#f9c3a8", "#f4a07a", "#eb6834", "#c9501f", "#9e3c14", "#6f290c"];
+  const DIV = ["#184f95", "#3987e5", "#a8cbf5", "#efece5", "#f5b8b6", "#e05c5c", "#a82828"];
+  const NS = "#ebe8e1";                                    // not significant
+  const REDS = ["#fbd5d3", "#f5a9a7", "#ec7a78", "#d94c4c", "#a82828"];
+  const TY = { 1: "#eb6834", 2: "#2a78d6", 3: "#1baf7a", 4: "#c8c3b7", 5: "#e9e6de", 6: "#8c877d" };
   function binner(breaks, colors) {
     return v => { if (v == null) return null; let i = 0; while (i < breaks.length && v >= breaks[i]) i++; return colors[i]; };
   }
@@ -146,14 +162,14 @@ svg#map:active { cursor: grabbing; }
              "Express subway corridors stretch the high-access zone deep into the Bronx and Queens; {{share_1m}} of residents can reach at least a million jobs."],
       color: p => binner([250e3, 500e3, 1e6, 1.5e6, 2e6, 2.5e6], BLUE)(p.j45),
       legend: { t: "Jobs within 45 min", rows: [[BLUE[0], "< 250k"], [BLUE[1], "250–500k"], [BLUE[2], "0.5–1.0M"], [BLUE[3], "1.0–1.5M"], [BLUE[4], "1.5–2.0M"], [BLUE[5], "2.0–2.5M"], [BLUE[6], "≥ 2.5M"]] },
-      hl: "j45" },
+      none: false, hl: "j45" },
     { key: "rent", n: "02", label: "Median rent",
       title: "Rents peak in the core, but not only there",
       stat: ["{{median_rent}}", "median gross rent, sample tracts"],
       body: ["Rents are highest in Manhattan below 96th Street and in brownstone Brooklyn; northeastern Queens and western Queens along the East River also top $2,000.",
              "The lowest rents sit in public-housing tracts, where rent is set by income; the models control for NYCHA's share of units."],
-      color: p => binner([1250, 1500, 1750, 2000, 2500, 3000], ORNG.slice().reverse())(p.rent),
-      legend: { t: "Monthly rent + utilities", rows: [[ORNG[6], "< $1,250"], [ORNG[5], "$1,250–1,499"], [ORNG[4], "$1,500–1,749"], [ORNG[3], "$1,750–1,999"], [ORNG[2], "$2,000–2,499"], [ORNG[1], "$2,500–2,999"], [ORNG[0], "$3,000+"]] },
+      color: p => binner([1250, 1500, 1750, 2000, 2500, 3000], ORNG)(p.rent),
+      legend: { t: "Monthly rent + utilities", rows: [[ORNG[0], "< $1,250"], [ORNG[1], "$1,250–1,499"], [ORNG[2], "$1,500–1,749"], [ORNG[3], "$1,750–1,999"], [ORNG[4], "$2,000–2,499"], [ORNG[5], "$2,500–2,999"], [ORNG[6], "$3,000+"]] },
       hl: "rent" },
     { key: "excess", n: "03", label: "Access vs. location",
       title: "Transit that beats its location is barely priced",
@@ -168,48 +184,43 @@ svg#map:active { cursor: grabbing; }
       stat: ["{{mgwr_pos}}", "of tracts with a significant positive local access premium"],
       body: ["A multiscale geographically weighted regression lets the access coefficient vary over about {{mgwr_bw}} neighbouring tracts, roughly {{mgwr_cd}} community districts, so it compares places that share a broad location.",
              "The premium is significant and positive in {{mgwr_mn}} of Manhattan tracts, {{mgwr_bk}} in Brooklyn and {{mgwr_qn}} in Queens, and in {{mgwr_bx}} in the Bronx and {{mgwr_si}} on Staten Island."],
-      color: p => p.mgs === false ? MID : binner([0, 0.15, 0.30, 0.45, 0.60], ["#3987e5", DIV[4], "#ec9a99", DIV[5], "#d94c4c", "#a82828"])(p.mg),
-      legend: { t: "Local coefficient (standardized)", rows: [["#3987e5", "negative"], [DIV[4], "0–0.15"], ["#ec9a99", "0.15–0.30"], [DIV[5], "0.30–0.45"], ["#d94c4c", "0.45–0.60"], ["#a82828", "> 0.60"], [MID, "not significant"]] },
+      color: p => p.mgs === false ? NS : binner([0, 0.15, 0.30, 0.45, 0.60], [DIV[1]].concat(REDS))(p.mg),
+      legend: { t: "Local coefficient (standardized)", rows: [[DIV[1], "negative"], [REDS[0], "0–0.15"], [REDS[1], "0.15–0.30"], [REDS[2], "0.30–0.45"], [REDS[3], "0.45–0.60"], [REDS[4], "> 0.60"], [NS, "not significant"]] },
       hl: "mg" },
     { key: "typo", n: "05", label: "Equity typology",
       title: "Where access is cheap and renters are stretched",
       stat: ["{{dw_hh}}", "renter households in displacement-watch tracts"],
       body: ["Displacement watch: high access, below-median rent and high renter vulnerability (severe rent burden, poverty, renter share) — Harlem, East Harlem, Washington Heights and the West Bronx. Tracts where NYCHA owns most homes are shown separately, since their rents are set by income.",
              "Service priority: low access, low rent, high vulnerability — Norwood, Belmont, Williamsbridge, Soundview, Bensonhurst and Far Rockaway, home to {{sp_hh}} renter households."],
-      color: p => ({ 1: "#d95926", 2: "#3987e5", 3: "#199e70", 4: "#5d6670", 5: "#3f4851", 6: "#8b93a0" })[p.ty] || null,
-      legend: { t: "Tract type", rows: [["#d95926", "Displacement watch ({{dw_tracts}})"], ["#3987e5", "Service priority ({{sp_tracts}})"], ["#199e70", "Established access premium ({{ea_tracts}})"], ["#8b93a0", "Public housing, NYCHA ≥ 50% ({{ph_tracts}})"], ["#5d6670", "Car-oriented / amenity premium ({{co_tracts}})"], ["#3f4851", "Middle ({{mi_tracts}})"]] },
+      color: p => TY[p.ty] || null,
+      legend: { t: "Tract type", rows: [[TY[1], "Displacement watch ({{dw_tracts}})"], [TY[2], "Service priority ({{sp_tracts}})"], [TY[3], "Established access premium ({{ea_tracts}})"], [TY[6], "Public housing, NYCHA ≥ 50% ({{ph_tracts}})"], [TY[4], "Car-oriented / amenity premium ({{co_tracts}})"], [TY[5], "Middle ({{mi_tracts}})"]] },
       hl: "ty" },
     { key: "ibx", n: "06", label: "IBX scenario",
       title: "Most IBX gains land where access is not yet priced",
       stat: ["{{ibx_pop}}", "residents gaining ≥5% job access"],
       body: ["Modelled with MTA's public parameters (18 stations, 32 minutes end to end, trains every 5 minutes), the IBX lifts 45-minute job access by at least 5% in {{ibx_tracts}} tracts; the median gain is {{ibx_med}} ({{ibx_med60}} on a 60-minute basis).",
              "The two most vulnerable quartiles hold {{ibx_q34}} of renter households in gaining tracts, against {{ibx_q34_base}} of renter households in the sample; the line does not reach the Bronx. {{ibx_unpriced_share}} of gaining tracts show no local access premium today. A precautionary screen flags {{watch_tracts}} tracts ({{watch_hh}} renter households) where a gain, an already-priced market and high vulnerability coincide, led by {{watch_ntas}}."],
-      color: p => p.ibx == null || p.ibx < 0.05 ? null : binner([0.10, 0.25, 0.50, 1.00], BLUE.slice(2))(p.ibx),
-      legend: { t: "Gain in jobs within 45 min", rows: [[BLUE[2], "+5–10%"], [BLUE[3], "+10–25%"], [BLUE[4], "+25–50%"], [BLUE[5], "+50–100%"], [BLUE[6], "more than doubles"], ["line", "IBX (scenario)"]] },
-      hl: "ibx", ibx: true },
+      color: p => p.ibx == null || p.ibx < 0.05 ? null : binner([0.10, 0.25, 0.50, 1.00], BLUE.slice(1, 6))(p.ibx),
+      legend: { t: "Gain in jobs within 45 min", rows: [[BLUE[1], "+5–10%"], [BLUE[2], "+10–25%"], [BLUE[3], "+25–50%"], [BLUE[4], "+50–100%"], [BLUE[5], "more than doubles"], ["line", "IBX (scenario)"]] },
+      none: [NOGAIN, "gain under 5%"], hl: "ibx", ibx: true },
   ];
   const TYNAME = { 1: "Displacement watch", 2: "Service priority", 3: "Established access premium", 4: "Car-oriented / amenity premium", 5: "Middle", 6: "Public housing (NYCHA ≥ 50%)" };
 
   // ---- map ----------------------------------------------------------------
   const box = document.getElementById("mapbox");
   const svg = d3.select("#map");
+  // hatch for tracts outside the rent sample; counter-scaled on zoom so it stays fine
+  const pat = svg.append("defs").append("pattern").attr("id", "nodata").attr("patternUnits", "userSpaceOnUse").attr("width", 5).attr("height", 5);
+  pat.append("rect").attr("width", 5).attr("height", 5).attr("fill", css("--nodata"));
+  pat.append("path").attr("d", "M-1,1 l2,-2 M0,5 l5,-5 M4,6 l2,-2").attr("stroke", css("--nodata-line")).attr("stroke-width", 1);
   const g = svg.append("g");
-  const gT = g.append("g"), gB = g.append("g"), gS = g.append("g"), gI = g.append("g");
-  let proj, path;
+  const gC = g.append("g"), gN = g.append("g"), gT = g.append("g"), gB = g.append("g"),
+        gS = g.append("g"), gI = g.append("g"), gL = g.append("g");
+  let proj, path, k = 1, small = false;
+  const labSize = d => (d.k === "land" ? 11 : 12) - (small ? 1.5 : 0);   // basemap labels, px on screen
 
-  function layout() {
-    const w = box.clientWidth, h = box.clientHeight;
-    svg.attr("viewBox", `0 0 ${w} ${h}`);
-    proj = d3.geoIdentity().reflectY(true).fitExtent([[16, 16], [w - 16, h - 16]], D.boroughs);
-    path = d3.geoPath(proj);
-    gT.selectAll("path").attr("d", path);
-    gB.selectAll("path").attr("d", path);
-    gS.selectAll("path").attr("d", path);
-    gI.select("path").attr("d", path(D.ibx.line));
-    gI.selectAll("circle").attr("cx", d => proj(d.xy)[0]).attr("cy", d => proj(d.xy)[1]);
-    gI.selectAll("text").attr("x", d => proj(d.xy)[0] + 8).attr("y", d => proj(d.xy)[1] + 4);
-  }
-
+  gC.append("path").attr("class", "ctx");
+  gN.selectAll("path").data(D.boroughs.features).join("path").attr("class", "base");
   const tracts = gT.selectAll("path").data(D.tracts.features).join("path").attr("class", "tract");
   gB.selectAll("path").data(D.boroughs.features).join("path").attr("class", "boro");
   gS.selectAll("path").data(D.subway.features).join("path").attr("class", "sub");
@@ -217,15 +228,54 @@ svg#map:active { cursor: grabbing; }
   gI.selectAll("circle").data(D.ibx.stations).join("circle").attr("class", "ibx-stn").attr("r", 3.5);
   const LABEL = new Set(["Brooklyn Army Terminal", "Flatbush-Nostrand Av", "Atlantic Av", "Roosevelt Av"]);
   gI.selectAll("text").data(D.ibx.stations.filter(s => LABEL.has(s.name))).join("text").attr("class", "ibx-lab").text(d => d.name);
-  layout();
-  new ResizeObserver(() => layout()).observe(box);
+  gL.selectAll("text").data(D.labels).join("text").attr("class", d => "lab " + d.k).text(d => d.t);
 
   const zoom = d3.zoom().scaleExtent([1, 14]).on("zoom", e => {
+    k = e.transform.k;
     g.attr("transform", e.transform);
-    gI.selectAll("circle").attr("r", 3.5 / e.transform.k);
-    gI.selectAll("text").style("font-size", (11 / e.transform.k) + "px").style("stroke-width", (3 / e.transform.k) + "px");
+    pat.attr("patternTransform", `scale(${1 / k})`);
+    gI.selectAll("circle").attr("r", 3.5 / k);
+    gI.selectAll("text").style("font-size", (11 / k) + "px").style("stroke-width", (3 / k) + "px");
+    gL.selectAll("text").style("font-size", d => labSize(d) / k + "px");
+    scalebar();
   });
+
+  function layout() {
+    const w = box.clientWidth, h = box.clientHeight, pad = Math.max(20, Math.round(Math.min(w, h) * 0.045));
+    small = w < 640;
+    svg.attr("viewBox", `0 0 ${w} ${h}`);
+    proj = d3.geoIdentity().reflectY(true).fitExtent([[pad, pad], [w - pad, h - pad]], D.boroughs);
+    path = d3.geoPath(proj);
+    gC.select("path").attr("d", path(D.context));
+    gN.selectAll("path").attr("d", path);
+    gT.selectAll("path").attr("d", path);
+    gB.selectAll("path").attr("d", path);
+    gS.selectAll("path").attr("d", path);
+    gI.select("path").attr("d", path(D.ibx.line));
+    gI.selectAll("circle").attr("cx", d => proj(d.xy)[0]).attr("cy", d => proj(d.xy)[1]);
+    gI.selectAll("text").attr("x", d => proj(d.xy)[0] + 8).attr("y", d => proj(d.xy)[1] + 4);
+    gL.selectAll("text").attr("transform", d => `translate(${proj(d.xy)}) rotate(${d.r})`)
+      .attr("display", d => small && d.k === "water" && d.t !== "Atlantic Ocean" ? "none" : null)
+      .style("font-size", d => labSize(d) / k + "px");
+    const e = D.meta.ext, a = proj([e[0], e[1]]), b = proj([e[2], e[3]]);
+    zoom.extent([[0, 0], [w, h]]).translateExtent([[Math.min(a[0], b[0]), Math.min(a[1], b[1])], [Math.max(a[0], b[0]), Math.max(a[1], b[1])]]);
+    scalebar();
+  }
+
+  // scale bar: a round distance close to 90 px at the current zoom
+  const sbar = document.getElementById("sbar"), slab = document.getElementById("slab");
+  function scalebar() {
+    if (!proj) return;
+    const ftPerPx = D.q / (proj.scale() * k);
+    const steps = [0.1, 0.25, 0.5, 1, 2, 3, 5, 10];
+    const mi = steps.filter(s => s * 5280 / ftPerPx <= 110).pop() || steps[0];
+    sbar.style.width = Math.round(mi * 5280 / ftPerPx) + "px";
+    slab.textContent = mi + " mi";
+  }
+
   svg.call(zoom);
+  layout();
+  new ResizeObserver(() => layout()).observe(box);
   document.getElementById("zin").onclick = () => svg.transition().duration(250).call(zoom.scaleBy, 1.6);
   document.getElementById("zout").onclick = () => svg.transition().duration(250).call(zoom.scaleBy, 1 / 1.6);
   document.getElementById("zreset").onclick = () => svg.transition().duration(300).call(zoom.transform, d3.zoomIdentity);
@@ -235,7 +285,7 @@ svg#map:active { cursor: grabbing; }
   const tip = document.getElementById("tip");
   let view = VIEWS[0], pinned = null;
   function tipHTML(p) {
-    const row = (k, v, key) => `<div class="k${view.hl === key ? " hl" : ""}"><span>${k}</span><span>${v}</span></div>`;
+    const row = (key, v, f) => `<div class="k${view.hl === f ? " hl" : ""}"><span>${key}</span><span>${v}</span></div>`;
     return `<b>${p.nta}</b><div style="margin-bottom:6px;color:var(--fg-3)">${p.b} · tract ${p.id.slice(5)}</div>` +
       row("Jobs in 45 min", fmtK(p.j45), "j45") +
       row("Median rent", p.rent == null ? "–" : usd(p.rent) + (p.tc ? "+" : ""), "rent") +
@@ -270,17 +320,19 @@ svg#map:active { cursor: grabbing; }
   function setView(v) {
     view = v;
     nav.selectAll("button").attr("aria-pressed", d => d.key === v.key);
-    tracts.attr("fill", d => v.color(d.properties) || LAND);
+    tracts.attr("fill", d => v.color(d.properties) || (v.none ? v.none[0] : NODATA));
     gI.attr("display", v.ibx ? null : "none");
     d3.select("#story").html(`<h2>${v.title}</h2><div class="stat"><span class="big">${v.stat[0]}</span><span class="lab">${v.stat[1]}</span></div>` + v.body.map(t => `<p>${t}</p>`).join(""));
     d3.select("#legend").html(`<div class="t">${v.legend.t}</div>` + v.legend.rows.map(([c, l]) =>
       c === "line" ? `<div class="row"><span class="ln"></span>${l}</div>` : `<div class="row"><span class="sw" style="background:${c}"></span>${l}</div>`).join("") +
-      `<div class="row"><span class="sw" style="background:${LAND};border:1px solid var(--line)"></span>${v.key === "access" ? "no residents" : "not in sample / below threshold"}</div>`);
+      (v.none === false ? "" : v.none ? `<div class="row"><span class="sw" style="background:${v.none[0]}"></span>${v.none[1]}</div>`
+                                      : `<div class="row"><span class="sw hatch"></span>not in rent sample</div>`) +
+      `<div class="row"><span class="sw" style="background:${BASE}"></span>no residents (parks, airports)</div>`);
     if (pinned) { tip.innerHTML = tipHTML(pinned.properties); }
     try { localStorage.setItem("pfc-view", v.key); } catch (e) {}
   }
   let start = VIEWS[0];
-  try { const k = (location.hash || "").slice(1) || localStorage.getItem("pfc-view"); start = VIEWS.find(v => v.key === k) || start; } catch (e) {}
+  try { const key = (location.hash || "").slice(1) || localStorage.getItem("pfc-view"); start = VIEWS.find(v => v.key === key) || start; } catch (e) {}
   setView(start);
 })();
 </script>

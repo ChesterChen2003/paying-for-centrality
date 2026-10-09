@@ -17,6 +17,7 @@ python 06a_ibx_stations.py     # place the 18 IBX stations on the corridor
 python 06b_ibx_scenario.py     # build IBX GTFS + route with it (r5py)
 python 06c_ibx_effects.py      # who gains, rent-pressure screen
 python 07_figures.py           # portfolio figures
+python 08a_context.py          # neighbouring land for the atlas basemap
 python 08_webmap_data.py       # quoted facts + data and page for the interactive atlas
 python 09_readme_findings.py   # README findings table from the facts
 cd .. && node report/build_report.js   # case-study .docx (needs: npm i docx)

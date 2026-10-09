@@ -107,6 +107,9 @@ need "https://lehd.ces.census.gov/data/lodes/LODES8/ny/ny_xwalk.csv.gz" "$RAW/lo
 echo "[6/6] Boundaries"
 need "https://data.cityofnewyork.us/resource/63ge-mke6.geojson?%24limit=5000" "$RAW/boundaries/nyc_tracts_2020.geojson"
 need "https://data.cityofnewyork.us/resource/9nt8-h7nd.geojson?%24limit=1000" "$RAW/boundaries/nyc_ntas_2020.geojson"
+# Census 1:500k county boundaries (2019, from the Census Bureau's CitySDK repository):
+# neighbouring land on the atlas beyond the OSM extract
+need "https://raw.githubusercontent.com/uscensusbureau/citysdk/master/v2/GeoJSON/500k/2019/county.json" "$RAW/boundaries/cb_2019_us_county_500k.json"
 
 # --- summary -------------------------------------------------------------------
 echo
