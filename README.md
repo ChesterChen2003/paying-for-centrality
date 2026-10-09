@@ -106,3 +106,9 @@ MTA static GTFS (subway; Bronx, Brooklyn, Manhattan, Queens, Staten Island buses
 ## Limitations
 
 Cross-sectional associations, not causal effects · ACS medians pool five years, include regulated leases and are top-coded · no controls for non-NYCHA subsidized housing or neighbourhood amenities · NYC jobs only (no NJ / Long Island / Westchester) · schedule-based access without reliability or fares; excess access is a residual and absorbs measurement error · IBX station sites, speeds and station access are approximations of public parameters, not an MTA design.
+
+## License
+
+- **Code** (`scripts/`, `web/`, `report/build_report.js`, `00_download_data.sh`, `run_all.sh`): [MIT](LICENSE).
+- **Report, figures, tables and atlas** (`report/`, `outputs/`, `docs/`): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse is welcome with credit to Wei Chen.
+- **Source data** stay under their providers' terms: OpenStreetMap © OpenStreetMap contributors (ODbL); MTA GTFS under the MTA's data terms of use; U.S. Census Bureau data are public domain; NYC Department of City Planning data under NYC Open Data terms.
