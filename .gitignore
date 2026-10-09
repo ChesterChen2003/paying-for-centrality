@@ -1,0 +1,6 @@
+data/
+*.part
+*.failed
+__pycache__/
+.DS_Store
+outputs/web/map_data.json

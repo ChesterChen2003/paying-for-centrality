@@ -1,0 +1,7 @@
+typology,tracts,renter_hh,pop,median_rent,median_jobs45,burden50,poverty,transit_commute,nycha_share
+Car-oriented / amenity premium,445,203973,1505968,2120.0,227233.0,0.307,0.103,0.321,0.0
+Displacement watch,339,531356,1573332,1542.0,1866549.0,0.343,0.275,0.572,0.052
+Established access premium,636,830633,2639893,2354.0,2719465.0,0.237,0.11,0.449,0.004
+Middle,365,209857,1172199,1695.0,334169.0,0.237,0.098,0.398,0.005
+Public housing (NYCHA ≥ 50%),60,101130,264327,662.0,1070209.5,0.237,0.384,0.603,0.801
+Service priority,319,344291,1205866,1608.0,437925.0,0.38,0.233,0.467,0.032

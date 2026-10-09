@@ -1,0 +1,49 @@
+typology,boroname,ntaname,tracts,renter_hh
+Car-oriented / amenity premium,Brooklyn,Bay Ridge,11,8567
+Car-oriented / amenity premium,Bronx,Throgs Neck-Schuylerville,11,5742
+Car-oriented / amenity premium,Bronx,Riverdale-Spuyten Duyvil,7,4709
+Car-oriented / amenity premium,Queens,Bayside,11,4474
+Car-oriented / amenity premium,Brooklyn,Canarsie,13,4237
+Car-oriented / amenity premium,Queens,South Ozone Park,16,4142
+Car-oriented / amenity premium,Queens,Glendale,8,4066
+Car-oriented / amenity premium,Queens,Auburndale,12,4043
+Displacement watch,Manhattan,Harlem (North),11,25195
+Displacement watch,Bronx,Concourse-Concourse Village,13,23034
+Displacement watch,Manhattan,East Harlem (North),9,21631
+Displacement watch,Manhattan,Washington Heights (South),9,21590
+Displacement watch,Manhattan,East Harlem (South),6,18178
+Displacement watch,Bronx,Mount Hope,10,16699
+Displacement watch,Bronx,Mount Eden-Claremont (West),12,16681
+Displacement watch,Manhattan,Washington Heights (North),7,16052
+Established access premium,Manhattan,Upper East Side-Yorkville,13,28559
+Established access premium,Manhattan,Upper West Side (Central),11,28221
+Established access premium,Manhattan,Upper East Side-Lenox Hill-Roosevelt Island,13,26386
+Established access premium,Brooklyn,Bedford-Stuyvesant (West),19,24931
+Established access premium,Manhattan,Chelsea-Hudson Yards,11,23821
+Established access premium,Brooklyn,Williamsburg,12,23148
+Established access premium,Manhattan,Hell's Kitchen,8,22704
+Established access premium,Manhattan,Murray Hill-Kips Bay,9,22569
+Middle,Queens,Woodside,6,7426
+Middle,Brooklyn,Bensonhurst,10,6979
+Middle,Brooklyn,Sheepshead Bay-Manhattan Beach-Gerritsen Beach,10,5419
+Middle,Bronx,Co-op City,4,5094
+Middle,Bronx,Wakefield-Woodlawn,9,4572
+Middle,Brooklyn,East Flatbush-Erasmus,3,4446
+Middle,Queens,Jackson Heights,6,4276
+Middle,Brooklyn,Flatbush,4,4246
+Public housing (NYCHA ≥ 50%),Brooklyn,Brownsville,3,7037
+Public housing (NYCHA ≥ 50%),Queens,Queensbridge-Ravenswood-Dutch Kills,3,6043
+Public housing (NYCHA ≥ 50%),Brooklyn,Carroll Gardens-Cobble Hill-Gowanus-Red Hook,2,4332
+Public housing (NYCHA ≥ 50%),Brooklyn,Crown Heights (North),2,4045
+Public housing (NYCHA ≥ 50%),Bronx,Soundview-Bruckner-Bronx River,2,3992
+Public housing (NYCHA ≥ 50%),Bronx,Claremont Village-Claremont (East),2,3883
+Public housing (NYCHA ≥ 50%),Manhattan,East Village,2,3759
+Public housing (NYCHA ≥ 50%),Brooklyn,Coney Island-Sea Gate,2,3465
+Service priority,Bronx,Norwood,8,14249
+Service priority,Brooklyn,Bensonhurst,14,13892
+Service priority,Bronx,Belmont,7,12526
+Service priority,Bronx,Williamsbridge-Olinville,14,12477
+Service priority,Queens,Far Rockaway-Bayswater,7,11304
+Service priority,Bronx,Tremont,9,11292
+Service priority,Bronx,Soundview-Bruckner-Bronx River,9,11225
+Service priority,Bronx,Parkchester,5,9333

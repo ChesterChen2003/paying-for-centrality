@@ -1,0 +1,4 @@
+measure,median_pct_gain_in_gaining_tracts,tracts_gaining_5pct
+jobs within 45 min,0.19908557616452738,624
+jobs within 60 min,0.12552408218113686,799
+decay-weighted jobs,0.08912201353097246,708
