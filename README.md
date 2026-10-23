@@ -2,9 +2,7 @@
 
 **Transit job access, rent, and who gains from the Interborough Express — a tract-level spatial analysis of New York City**
 
-Wei Chen · Master of Regional Planning, Cornell University · 2026
-
-> Independent academic work using public data.
+Wei Chen, Master of Regional Planning, Cornell University
 
 <p align="center"><img src="outputs/figures/F5_mgwr_local_access.png" width="48%" alt="MGWR local access premium"> <img src="outputs/figures/F7_ibx_access_gain.png" width="48%" alt="IBX scenario access gain"></p>
 
