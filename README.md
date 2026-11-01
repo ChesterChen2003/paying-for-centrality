@@ -79,12 +79,14 @@ scripts/
   06b_ibx_scenario.py    IBX GTFS + routing
   06c_ibx_effects.py     who gains; rent-pressure screen
   07_figures.py          figures (PNG + PDF)
+  07b_method_flowchart.py  methodology flowchart (journal style)
+  07c_portfolio_figures.py figure panels for the portfolio pages
   08a_context.py         neighbouring land (NJ, Westchester, Nassau) for the atlas basemap
   08_webmap_data.py      quoted facts (facts.json) + data and page for the interactive atlas
   09_readme_findings.py  README findings table from facts.json
 web/template.html        atlas page template (D3, no basemap tiles needed)
 docs/index.html          standalone atlas for GitHub Pages
-report/                  case-study write-up and its build script
+report/                  case-study write-up, five portfolio pages (.pptx/.pdf) and their build scripts
 outputs/figures, tables, web
 ```
 

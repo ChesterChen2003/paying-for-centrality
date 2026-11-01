@@ -18,7 +18,9 @@ python 06b_ibx_scenario.py     # build IBX GTFS + route with it (r5py)
 python 06c_ibx_effects.py      # who gains, rent-pressure screen
 python 07_figures.py           # portfolio figures
 python 07b_method_flowchart.py # methodology flowchart (journal style)
+python 07c_portfolio_figures.py # figure panels sized for the portfolio pages
 python 08a_context.py          # neighbouring land for the atlas basemap
 python 08_webmap_data.py       # quoted facts + data and page for the interactive atlas
 python 09_readme_findings.py   # README findings table from the facts
 cd .. && node report/build_report.js   # case-study .docx (needs: npm i docx)
+node report/build_portfolio.js        # portfolio pages .pptx (needs: npm i pptxgenjs; PPTX_SKILL for the theme step)
